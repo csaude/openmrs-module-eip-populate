@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.2">
+
+	<!-- Module Properties -->
+	<id>eip-populate</id>
+	<name>Eip Populate Module</name>
+	<version>1.0-SNAPSHOT</version>
+	<package>org.openmrs.module.eip-populate</package>
+	<author>FGH</author>
+	<description>
+		Populate the openMrs database with random records
+	</description>
+	<updateURL>https://modules.openmrs.org/modules/download/eip-populate/update.rdf</updateURL>
+	<require_version>2.3.2</require_version>
+	<!-- / Module Properties -->
+
+	
+	<!-- Module Activator -->
+	<activator>org.openmrs.module.eip-populate.EptsSynchronizeActivator</activator>
+	
+	<aware_of_modules>
+    	<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
+	</aware_of_modules>
+	
+	<!-- Adds link to admin page -->
+	<extension>
+		<point>org.openmrs.admin.list</point>
+		<class>org.openmrs.module.eip-populate.extension.html.AdminList</class>
+	</extension>
+	
+	<!-- Maps hibernate file's, if present -->
+	<mappingFiles>
+				
+	</mappingFiles>
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with eip-populate. -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+	<messages>
+		<lang>es</lang>
+		<file>messages_es.properties</file>
+	</messages>
+	<!-- /Internationalization -->
+
+</module>
+
