@@ -18,7 +18,7 @@ import org.openmrs.module.populate.monitor.RoboticUser;
 public class System_ {
 	static Logger logger;
 	
-	private final static int QTY_USERS = 50;
+	private final static int QTY_USERS = 10;
 	//private final static int OPERATION_INTERVAL = 20;
 	private final static int DATE_DURATION = 60;
 	private static final Date SYSTEM_START_DATE = DateAndTimeUtilities.createDate("01-01-2017");
@@ -51,7 +51,7 @@ public class System_ {
 		this.roboticUsers = new ArrayList<RoboticUser>(qtyUsers);
 		
 		DBConnectionInfo dbConnInfo = new DBConnectionInfo();
-		dbConnInfo.setConnectionURI("jdbc:mysql://10.10.2.19:3307/openmrs_remote?autoReconnect=true&useSSL=false");
+		dbConnInfo.setConnectionURI("jdbc:mysql://10.10.2.2:3307/openmrs_ile?autoReconnect=true&useSSL=false");
 		dbConnInfo.setDataBaseUserName("root");
 		dbConnInfo.setDataBaseUserPassword("root");
 		dbConnInfo.setDriveClassName("com.mysql.jdbc.Driver");
