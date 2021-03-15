@@ -18,7 +18,7 @@ import org.openmrs.module.populate.monitor.RoboticUser;
 public class System_ {
 	static Logger logger;
 	
-	private final static int QTY_USERS = 15;
+	private final static int QTY_USERS = 50;
 	//private final static int OPERATION_INTERVAL = 20;
 	private final static int DATE_DURATION = 60;
 	private static final Date SYSTEM_START_DATE = DateAndTimeUtilities.createDate("01-01-2017");
