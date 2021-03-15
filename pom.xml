@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>epts-populate</artifactId>
+	<artifactId>eip-populate</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>EIP Populate Module Module</name>
@@ -22,9 +22,9 @@
 	</organization>
 
 	<scm>
-		<connection>scm:svn:https://svn.openmrs.org/openmrs-modules/epts-populate/trunk/</connection>
-		<developerConnection>scm:svn:https://svn.openmrs.org/openmrs-modules/epts-populate/trunk/</developerConnection>
-		<url>https://svn.openmrs.org/openmrs-modules/epts-populate/trunk/</url>
+		<connection>scm:svn:https://svn.openmrs.org/openmrs-modules/eip-populate/trunk/</connection>
+		<developerConnection>scm:svn:https://svn.openmrs.org/openmrs-modules/eip-populate/trunk/</developerConnection>
+		<url>https://svn.openmrs.org/openmrs-modules/eip-populate/trunk/</url>
 	</scm>
 
 	<modules>
