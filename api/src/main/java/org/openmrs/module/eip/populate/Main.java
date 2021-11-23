@@ -1,5 +1,6 @@
 package org.openmrs.module.eip.populate;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -12,8 +13,15 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		BasicConfigurator.configure();
 		
-		System_.getInstance().start();
-		
+		if (args.length == 0 || args[0] == null) {
+			System.out.println("You must specify a path to configuration file");
+		}
+		else {
+			
+			File file = new File(args[0]);
+			
+			System_.getInstance().start(Configurations.loadFromFile(file));
+		}
 		//generateArrayFromFile();
 	}
 

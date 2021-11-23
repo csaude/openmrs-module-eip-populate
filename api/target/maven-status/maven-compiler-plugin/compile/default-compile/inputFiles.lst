@@ -27,6 +27,7 @@ D:\JEE\Workspace\FGH\openmrs-module-eip-populate\api\src\main\java\org\openmrs\m
 D:\JEE\Workspace\FGH\openmrs-module-eip-populate\api\src\main\java\org\openmrs\module\populate\main\model\base\BaseDAO.java
 D:\JEE\Workspace\FGH\openmrs-module-eip-populate\api\src\main\java\org\openmrs\module\populate\main\utils\concurrent\MonitoredOperation.java
 D:\JEE\Workspace\FGH\openmrs-module-eip-populate\api\src\main\java\org\openmrs\module\populate\main\model\RecordDAO.java
+D:\JEE\Workspace\FGH\openmrs-module-eip-populate\api\src\main\java\org\openmrs\module\eip\populate\Configurations.java
 D:\JEE\Workspace\FGH\openmrs-module-eip-populate\api\src\main\java\org\openmrs\module\populate\main\model\base\AnonymousVO.java
 D:\JEE\Workspace\FGH\openmrs-module-eip-populate\api\src\main\java\org\openmrs\module\populate\main\utils\db\SQLUtilitie.java
 D:\JEE\Workspace\FGH\openmrs-module-eip-populate\api\src\main\java\org\openmrs\module\populate\main\utils\DefaultValues.java

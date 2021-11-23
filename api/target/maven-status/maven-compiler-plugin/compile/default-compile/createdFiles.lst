@@ -2,6 +2,7 @@ org\openmrs\module\eip\populate\EipPopulateActivator.class
 org\openmrs\module\populate\main\utils\concurrent\ScheduledOperation.class
 org\openmrs\module\populate\main\utils\FileUtilities.class
 org\openmrs\module\populate\main\utils\RecordGenerator.class
+org\openmrs\module\eip\populate\Configurations.class
 org\openmrs\module\populate\main\model\base\VO.class
 org\openmrs\module\populate\main\utils\RandomValues.class
 org\openmrs\module\populate\main\utils\concurrent\TimeController.class

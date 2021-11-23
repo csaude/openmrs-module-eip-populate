@@ -37,8 +37,8 @@ public class RecordGenerator {
 						    "		 ?,"+
 						    "		 ?)";
 		
-		Object[] insertParams = {RandomValues.randomGender(),
-								 RandomValues.randomDateBirth(),
+		Object[] insertParams = {user.getSystem().getRandomValues().randomGender(),
+								 user.getSystem().getRandomValues().randomDateBirth(),
 								 false,
 								 false,
 								 DefaultValues.DEFAULT_USER_ID,
@@ -82,9 +82,9 @@ public class RecordGenerator {
 		
 		Object[] insertParams = {true,
 								 person.getRelatedOpenMrsRecordId(),
-								 RandomValues.randomFirstName(),
-								 RandomValues.randomMiddleName(),
-								 RandomValues.randomFamilyName(),
+								 user.getSystem().getRandomValues().randomFirstName(),
+								 user.getSystem().getRandomValues().randomMiddleName(),
+								 user.getSystem().getRandomValues().randomFamilyName(),
 								 DefaultValues.DEFAULT_USER_ID,
 								 false,
 								 uuid,
@@ -126,7 +126,7 @@ public class RecordGenerator {
 		Object[] insertParams = {true,
 								 person.getRelatedOpenMrsRecordId(),
 								 "Mocambique",
-								 RandomValues.randomProvinceName(),
+								 user.getSystem().getRandomValues().randomProvinceName(),
 								 "Desconhecido",
 								 DefaultValues.DEFAULT_USER_ID,
 								 false,
@@ -200,10 +200,12 @@ public class RecordGenerator {
 						    "		 ?,"+
 						    "		 ?)";
 		
+		//int patientIdentify = user.getSystem().getRandomValues().randomPatientIdentifyType();
+		
 		Object[] insertParams = {patient.getRelatedOpenMrsRecordId(),
-								 RandomValues.randomPatientIdentify(),
-								 RandomValues.randomPatientIdentifyType(),
-								 RandomValues.randomBoolean(),
+								 user.getSystem().getRandomValues().randomPatientIdentify(),
+								 user.getSystem().getRandomValues().randomPatientIdentifyType(),
+								 user.getSystem().getRandomValues().randomBoolean(),
 								 DefaultValues.DEFAULT_LOCATION_ID,
 								 DefaultValues.DEFAULT_USER_ID,
 								 false,
@@ -248,7 +250,7 @@ public class RecordGenerator {
 						    "		 ?)";
 		
 		Object[] insertParams = {patient.getRelatedOpenMrsRecordId(),
-								 RandomValues.randomProgramId(),
+								 user.getSystem().getRandomValues().randomProgramId(),
 								 DefaultValues.DEFAULT_LOCATION_ID,
 								 System_.getSystemDate(),
 								 DefaultValues.DEFAULT_USER_ID,
@@ -352,7 +354,7 @@ public class RecordGenerator {
 						    "		 ?)";
 		
 		Object[] insertParams = {patient.getRelatedOpenMrsRecordId(),
-								 RandomValues.randomVisitType(),
+								 user.getSystem().getRandomValues().randomVisitType(),
 								 System_.getSystemDate(),
 								 DefaultValues.DEFAULT_USER_ID,
 								 false,
@@ -392,7 +394,7 @@ public class RecordGenerator {
 						    "		 ?,"+
 						    "		 ?)";
 		
-		Object[] insertParams = { RandomValues.randomEncounterType(),
+		Object[] insertParams = { user.getSystem().getRandomValues().randomEncounterType(),
 								  patient.getRelatedOpenMrsRecordId(),
 								  DefaultValues.FILA_FORM_ID,
 								  visit.getRelatedOpenMrsRecordDate(),
@@ -417,12 +419,12 @@ public class RecordGenerator {
 	private static void generateAndInsertFilaData(Record encounter, Record person, RoboticUser user, boolean lockIt, Connection conn) throws DBException {
 		generateAndInsertEncounterProvider(encounter, user, lockIt, conn);
 		
-		Integer quantidadeAviada = RandomValues.randomMedicationQtyAvailable();
+		Integer quantidadeAviada = user.getSystem().getRandomValues().randomMedicationQtyAvailable();
 		Record qtyConcept = Record.fastCreate(1715);
 		generateAndInsertObs(encounter, person, qtyConcept, "value_numeric", quantidadeAviada, conn);
 		
 		
-		String posology= RandomValues.randomMedicationPosology();
+		String posology= user.getSystem().getRandomValues().randomMedicationPosology();
 		Record posologyConcept = Record.fastCreate(1711);
 		
 		generateAndInsertObs(encounter, person, posologyConcept, "value_text", posology, conn);
@@ -432,12 +434,12 @@ public class RecordGenerator {
 		
 		generateAndInsertObs(encounter, person, returnDateConcept, "value_datetime", returnDate, conn);
 	
-		Integer levaCamp= RandomValues.randomBooleanConceptAswer();
+		Integer levaCamp= user.getSystem().getRandomValues().randomBooleanConceptAswer();
 		Record booleanCodedConcept = Record.fastCreate(23856);
 		
 		generateAndInsertObs(encounter, person, booleanCodedConcept, "value_coded", levaCamp, conn);
 	
-		if (levaCamp == RandomValues.booleanConceptAswers[0]) {
+		if (levaCamp == user.getSystem().getRandomValues().booleanConceptAswers[0]) {
 			Integer campNumber = RandomValues.randomInteger(1000000);
 			generateAndInsertObs(encounter, person, qtyConcept, "value_numeric", campNumber, conn);
 		}
@@ -507,7 +509,7 @@ public class RecordGenerator {
 						    "		 ?)";
 		
 		Object[] insertParams = { encounter.getRelatedOpenMrsRecordId(),
-								  RandomValues.randomProviderId(),
+								  user.getSystem().getRandomValues().randomProviderId(),
 								  DefaultValues.DEFAULT_ENCOUNTER_ROLE_ID,
 								  DefaultValues.DEFAULT_USER_ID,
 								  false,

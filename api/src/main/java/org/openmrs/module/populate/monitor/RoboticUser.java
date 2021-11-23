@@ -14,52 +14,35 @@ import org.openmrs.module.populate.main.utils.exceptions.ForbiddenOperationExcep
 
 public class RoboticUser implements MonitoredOperation{
 	private String userName;
-	//private Operation[] operations;
+	private System_ system;
 	
-	//private int nextOperation;
-	
-	public RoboticUser(String userName) {
+	public RoboticUser( String userName, System_ system) {
 		this.userName = userName;
+		this.system = system;
 	}
 	
 	public String getUserName() {
 		return userName;
 	}
 	
-	/*
-	public void determineOperations(int qtyOperations) {
-		this.nextOperation = 0;
-		this.operations = Operation.randomOperations(qtyOperations);
+	public System_ getSystem() {
+		return system;
 	}
-	*/
-	
+
 	@Override
 	public void run() {
 		while(true) {
-			Operation nextOperation = Operation.randomOperation();
+			Operation nextOperation = Operation.randomOperation(system.getConfig().getOperationsDuration());
 			
 			executeNextOperation(nextOperation);
 			
 			try {Thread.sleep(1000*nextOperation.getDuration());} catch (InterruptedException e) {}
-			
-			//this.nextOperation = determineNextOperation();
 		}
 	}
 
-	/*
-	private int determineNextOperation() {
-		int nextOp = nextOperation + 1;
-		
-		if (nextOp > this.operations.length) nextOp = 0;
-		
-		return nextOp;
-	}*/
-
-	//Operation nextOperation;
-	
 	@SuppressWarnings("unused")
 	private Operation tmpNextOperation() {
-		Operation nextOperation = Operation.randomOperation();
+		Operation nextOperation = Operation.randomOperation(system.getConfig().getOperationsDuration());
 		
 		if (nextOperation == null) return Operation.createPatient();
 		

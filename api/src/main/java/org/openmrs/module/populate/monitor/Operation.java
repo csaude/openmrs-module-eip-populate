@@ -17,8 +17,9 @@ public class Operation {
 	static final String ADD_NEW_PATIENT_IDENTIFY = "ADD_PATIENT_IDENTIFY";
 	
 	static final String[] avaliableOperations = {CREATE_PATIENT_OPERATION, GENERATE_PATIENT_PROGRAM_OPERATION, GENERATE_PATIENT_STATE_OPERATION, CREATE_ENCOUNTER_OPERATION, ADD_NEW_PERSON_NAME_OPERATION, ADD_NEW_PERSON_ADDRESS, ADD_NEW_PATIENT_IDENTIFY} ;//CREATE_FILA_FORM_DATA_OPERATION, CREATE_VISIT_OPERATION
-	static final int[] durations = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30};
+	//static final int[] durations = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30};
 	
+	//static final int[] durations = {0, 1, 2, 3, 4, 5};
 	
 	private String code;
 	
@@ -27,7 +28,7 @@ public class Operation {
 	 */
 	private int duration;
 	
-	public Operation(String code) {
+	public Operation( String code) {
 		this.code = code;
 	}
 	
@@ -85,7 +86,7 @@ public class Operation {
 		return this.code.equals(Operation.ADD_NEW_PATIENT_IDENTIFY);
 	}
 	
-	public static Operation randomOperation() {
+	public static Operation randomOperation(int[] durations) {
 		String operationCode = avaliableOperations[RandomValues.randomInteger(avaliableOperations.length - 1)];
 		
 		Operation operation =  new Operation(operationCode);

@@ -15,6 +15,16 @@ public class RecordDAO extends BaseDAO {
 		record.setRelatedOpenMrsRecordId(retrieveRecordIdByUuid(record.getRelatedOpenMrsRecordTable(), record.getRelatedOpenMrsRecordUuid(), conn));
 	}
 	
+	public static boolean recordExists(String tableName, int recordId, Connection conn) throws DBException {
+		Object[] params = {recordId};
+	
+		String sql = " SELECT	" + tableName + "_id related_open_mrs_record_id " +
+					 " FROM		" + tableName + 
+					 " WHERE 	" + tableName + "_id";
+		
+		return find(Record.class, sql, params, conn) != null;
+	}
+	
 	public static int retrieveRecordIdByUuid(String tableName, String uuid, Connection conn) throws DBException {
 		Object[] params = {uuid};
 	

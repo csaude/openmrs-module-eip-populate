@@ -18,45 +18,18 @@ import org.openmrs.module.populate.monitor.RoboticUser;
 public class System_ {
 	static Logger logger;
 	
-	private final static int QTY_USERS = 10;
-	//private final static int OPERATION_INTERVAL = 20;
-	private final static int DATE_DURATION = 60;
-	private static final Date SYSTEM_START_DATE = DateAndTimeUtilities.createDate("01-01-2017");
-	
 	private CommonUtilities utilities;
-	
-	private Date startDate;
-	private Date currDate;
-	private int dateDuration;
-	private int qtyUsers;
-	
 	private static System_ system;
-	//private TimeCountDown timeCountDown;
-	//private int operationInterval;
-	
+	private Configurations config;
 	private List<RoboticUser> roboticUsers;
 	private DBConnectionService dbService;
 	
-	private System_(Date startDate, int dateDuration, int qtyUsers) {
-		//loadLogger();
-		
+	private Date currDate;
+	private RandomValues randomValues;
+
+	private System_() {
 		logger = Logger.getLogger(System_.class);
-		
-		this.startDate = startDate;
-		this.dateDuration = dateDuration;
-		
 		this.utilities = CommonUtilities.getInstance();
-		this.qtyUsers = qtyUsers;
-		//this.operationInterval = operationInterval;
-		this.roboticUsers = new ArrayList<RoboticUser>(qtyUsers);
-		
-		DBConnectionInfo dbConnInfo = new DBConnectionInfo();
-		dbConnInfo.setConnectionURI("jdbc:mysql://10.10.2.19:3307/openmrs_remote?autoReconnect=true&useSSL=false");
-		dbConnInfo.setDataBaseUserName("root");
-		dbConnInfo.setDataBaseUserPassword("root");
-		dbConnInfo.setDriveClassName("com.mysql.jdbc.Driver");
-		
-		this.dbService = DBConnectionService.init(dbConnInfo);
 	}
 	
 	public OpenConnection openConnection() {
@@ -72,17 +45,39 @@ public class System_ {
 	}
 	
 	public static System_ getInstance() {
-		if (system == null) system = new System_(System_.SYSTEM_START_DATE, System_.DATE_DURATION, System_.QTY_USERS);
+		if (system == null) system = new System_();
 	
 		return system;
 	}
 	
-	public void start() {
-		this.currDate = this.startDate;
+	public Configurations getConfig() {
+		return config;
+	}
+	
+	public void start(Configurations conf) {
+		this.config = conf;
 		
-		log("The system is starting...");
+		this.roboticUsers = new ArrayList<RoboticUser>(config.getQtyUsers());
 		
-		for (int i = 0; i < qtyUsers; i++) {
+		DBConnectionInfo dbConnInfo = new DBConnectionInfo();
+		dbConnInfo.setConnectionURI(conf.getDbURL());
+		dbConnInfo.setDataBaseUserName("root");
+		dbConnInfo.setDataBaseUserPassword("root");
+		dbConnInfo.setDriveClassName("com.mysql.jdbc.Driver");
+		
+		this.dbService = DBConnectionService.init(dbConnInfo);
+		this.randomValues = new RandomValues(config);
+		
+		log("The system is starting with the following parameters:");
+		
+		log("DB URL: " + conf.getDbURL());
+		log("Start Date: " + conf.getSystemStartDate());
+		log("Qty Users: " + conf.getQtyUsers());
+		log("Day DUration: " + conf.getDayDuration());
+		
+		this.currDate = config.getSystemStartDate();
+		
+		for (int i = 0; i < config.getQtyUsers(); i++) {
 			RoboticUser roboticUser = generateRoboticUser();
 			
 			roboticUsers.add(roboticUser);
@@ -90,12 +85,9 @@ public class System_ {
 			ThreadPoolService.getInstance().createNewThreadPoolExecutor("USER_" + roboticUser.getUserName().toUpperCase()).execute(roboticUser);
 		}
 		
-		//this.timeCountDown = TimeCountDown.wait(this, this.dateDuration, "");
-		
-		
 		while(true) {
 			try {
-				Thread.sleep(this.dateDuration * 1000);
+				Thread.sleep(config.getDayDuration() * 1000);
 				log("New day started");
 				
 				this.currDate = DateAndTimeUtilities.addDaysDate(this.currDate, 1);
@@ -106,15 +98,18 @@ public class System_ {
 		}
 	}
 	
-
+	public RandomValues getRandomValues() {
+		return randomValues;
+	}
+	
 	public synchronized RoboticUser generateRoboticUser() {
-		String userName = RandomValues.randomFirstName();
+		String userName = this.randomValues.randomFirstName();
 		
 		while (findGeneratedUser(userName) != null) {
-			userName = RandomValues.randomFirstName();
+			userName = randomValues.randomFirstName();
 		}
 		
-		RoboticUser u = new RoboticUser(RandomValues.randomFirstName());
+		RoboticUser u = new RoboticUser(randomValues.randomFirstName(), this);
 	
 		return u;
 	}
@@ -142,20 +137,5 @@ public class System_ {
 		
 		log(logMsg);
 	}
-	
-	/*@Override
-	public void onFinish() {
-		this.currDate = DateAndTimeUtilities.addDaysDate(this.currDate, 1);
-		
-		this.timeCountDown.restart();
-		
-		//TimeCountDown.wait(this, this.dateDuration, "");
-	}
-
-	@Override
-	public String getThreadNamingPattern() {
-		return "system";
-	}*/
-	
 	
 }
